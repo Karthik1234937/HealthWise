@@ -4,6 +4,7 @@ import google.generativeai as genai
 import os
 import json
 import re
+from PIL import Image  # Pillow for image processing (future use)
 
 app = Flask(__name__)
 CORS(app)
@@ -12,9 +13,12 @@ CORS(app)
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
 def clean_json_response(text):
-    """Removes markdown formatting from JSON response."""
+    """Removes markdown formatting and extracts JSON from response."""
     cleaned = re.sub(r"```json\s*", "", text)
     cleaned = re.sub(r"\s*```", "", cleaned)
+    match = re.search(r"\{.*\}", cleaned, re.DOTALL)
+    if match:
+        return match.group(0).strip()
     return cleaned.strip()
 
 @app.route('/api/analyze', methods=['POST'])
@@ -61,7 +65,11 @@ def analyze():
         ])
         
         json_str = clean_json_response(response.text)
-        return jsonify(json.loads(json_str))
+        try:
+            return jsonify(json.loads(json_str))
+        except Exception as json_err:
+            print(f"JSON parse error: {json_err}\nRaw response: {response.text}")
+            return jsonify({"error": "Failed to parse AI response as JSON"}), 500
 
     except Exception as e:
         print(f"Error: {e}")
