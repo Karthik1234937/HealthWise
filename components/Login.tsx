@@ -40,7 +40,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             gender: "Not Specified",
             height: 0,
             weight: 0,
-            bloodType: "Unknown",
+              blood_type: "Unknown",
             email: email,
             phone: ""
           };
