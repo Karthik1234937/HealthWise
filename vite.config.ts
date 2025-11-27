@@ -9,9 +9,7 @@ export default defineConfig(({ mode }) => {
         host: '0.0.0.0',
       },
       plugins: [react()],
-      define: {
-        'process.env.VITE_API_URL': JSON.stringify(env.VITE_API_URL || 'http://localhost:5000')
-      },
+      // REMOVED THE "define" BLOCK THAT EXPOSED THE KEY
       build: {
         outDir: 'dist',
         sourcemap: true,
