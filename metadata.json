@@ -1,0 +1,7 @@
+{
+  "name": "HealthWise OCR",
+  "description": "AI-powered medical document OCR and analysis system. Extract lab results, visualize health data, and get intelligent assessments using Gemini.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
