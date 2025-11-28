@@ -63,7 +63,7 @@ export interface UserProfile {
   gender: string;
   height: number; // cm
   weight: number; // kg
-  blood_type: string;
+  bloodType: string;
   email: string;
   phone: string;
 }

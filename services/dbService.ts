@@ -12,7 +12,19 @@ export const getUserProfile = async (userId: string): Promise<UserProfile | null
     console.error('Error fetching profile:', error);
     return null;
   }
-  return data as UserProfile;
+  
+  // Map database fields to UserProfile interface
+  return {
+    id: data.id,
+    name: data.name,
+    age: data.age,
+    gender: data.gender,
+    height: data.height,
+    weight: data.weight,
+    bloodType: data.bloodtype, // Map from lowercase column
+    email: data.email,
+    phone: data.phone
+  } as UserProfile;
 };
 
 export const saveUserProfile = async (userId: string, profile: UserProfile) => {
@@ -20,7 +32,14 @@ export const saveUserProfile = async (userId: string, profile: UserProfile) => {
     .from('profiles')
     .upsert({
       id: userId,
-      ...profile
+      name: profile.name,
+      age: profile.age,
+      gender: profile.gender,
+      height: profile.height,
+      weight: profile.weight,
+      bloodtype: profile.bloodType, // Map to lowercase column name
+      email: profile.email,
+      phone: profile.phone
     });
 
   if (error) throw error;

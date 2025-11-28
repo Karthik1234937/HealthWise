@@ -29,7 +29,7 @@ const INITIAL_USER: UserProfile = {
   gender: "Not Specified",
   height: 0,
   weight: 0,
-  blood_type: "Unknown",
+  bloodType: "Unknown",
   email: "",
   phone: ""
 };
